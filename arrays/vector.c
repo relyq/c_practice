@@ -4,7 +4,24 @@
 
 // private methods
 
-void vector_resize(vector* v, size_t new_size) {
+static void vector_resize(vector* v, size_t new_size) {
+  if (new_size < 1)
+    return;
+  else if (new_size < 16)
+    new_size = 16;
+  else {
+    unsigned int size_tmp = new_size;
+    // size rounded up to next power of two
+    size_tmp--;
+    size_tmp |= size_tmp >> 1;
+    size_tmp |= size_tmp >> 2;
+    size_tmp |= size_tmp >> 4;
+    size_tmp |= size_tmp >> 8;
+    size_tmp |= size_tmp >> 16;
+    size_tmp++;
+
+    new_size = size_tmp;
+  }
   int* new_ptr = realloc(v->p, new_size * (int)sizeof(int));
   if (new_ptr) {
     v->p = new_ptr;
@@ -24,6 +41,18 @@ vector vector_create(size_t vsize) {
     v.p = (int*)malloc(16 * sizeof(int));
     v.capacity = 16;
   } else {
+    unsigned int size_tmp = vsize;
+    // size rounded up to next power of two
+    size_tmp--;
+    size_tmp |= size_tmp >> 1;
+    size_tmp |= size_tmp >> 2;
+    size_tmp |= size_tmp >> 4;
+    size_tmp |= size_tmp >> 8;
+    size_tmp |= size_tmp >> 16;
+    size_tmp++;
+
+    vsize = size_tmp;
+
     v.p = (int*)malloc(vsize * sizeof(int));
     v.capacity = vsize;
   }
@@ -36,9 +65,9 @@ int vector_capacity(const vector* v) { return v->capacity; }
 
 int vector_isEmpty(const vector* v) { return v->size ? 0 : 1; }
 
-int vector_at(const vector* v, const int index) {
-  if (index < v->capacity) return *(v->p + index);
-  return -1;  // out of bounds error
+int vector_at(const vector* v, const size_t index) {
+  if (index < 0 || index > v->size) return -1;  // out of bounds error
+  return *(v->p + index);
 }
 
 void vector_push(vector* v, const int item) {
@@ -48,13 +77,16 @@ void vector_push(vector* v, const int item) {
 }
 
 int vector_pop(vector* v) {
-  if (v->size == v->capacity / 4) vector_resize(v, v->capacity / 2);
-  int last_item = vector_at(v, v->size - 1);
+  if (!v->size) return 0;
+  if ((v->size == v->capacity / 4) && (v->capacity > 16))
+    vector_resize(v, v->capacity / 2);
+  int last_item = *(v->p + v->size - 1);
   v->size--;
   return last_item;
 }
 
-void vector_insert(vector* v, const int index, int item) {
+int vector_insert(vector* v, const size_t index, int item) {
+  if (index < 0 || index > v->size) return -1;
   if (v->size == v->capacity) vector_resize(v, v->capacity * 2);
   v->size++;
   int tmp;
@@ -63,11 +95,14 @@ void vector_insert(vector* v, const int index, int item) {
     *(v->p + index + i) = item;
     item = tmp;
   }
+
+  return 0;
 }
 
 void vector_prepend(vector* v, const int item) { vector_insert(v, 0, item); }
 
-void vector_delete(vector* v, const int index) {
+int vector_delete(vector* v, const size_t index) {
+  if (index < 0 || index > v->size) return -1;
   if (v->size == v->capacity / 4) vector_resize(v, v->capacity / 2);
   int tmp;
   v->size--;
@@ -76,15 +111,20 @@ void vector_delete(vector* v, const int index) {
     *(v->p + index + i) = tmp;
     *(v->p + index + i + 1) = 0;
   }
+
+  return 0;
 }
 
-void vector_remove(vector* v, const int item) {
+int vector_remove(vector* v, const int item) {
+  int items_removed = 0;
   for (int i = 0; i < v->size; i++) {
     if (vector_at(v, i) == item) {
       vector_delete(v, i);
       i--;
+      items_removed++;
     }
   }
+  return items_removed;
 }
 
 int vector_find(vector* v, const int item) {
@@ -96,5 +136,7 @@ int vector_find(vector* v, const int item) {
 
 void vector_destroy(vector* v) {
   free(v->p);
+  v->p = NULL;
   v->capacity = 0;
+  v->size = 0;
 }
