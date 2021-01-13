@@ -22,5 +22,6 @@ void vector_prepend(vector* v, const int item);
 int vector_delete(vector* v, const size_t index);
 int vector_remove(vector* v, const int item);
 int vector_find(vector* v, const int item);
+int vector_update(vector *v, const size_t index, int item);
 
 #endif

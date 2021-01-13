@@ -99,6 +99,12 @@ int vector_insert(vector* v, const size_t index, int item) {
   return 0;
 }
 
+int vector_update(vector *v, const size_t index, int item){
+  if (index < 0 || index > v->size) return -1;
+  *(v->p + index) = item;
+  return 0;
+}
+
 void vector_prepend(vector* v, const int item) { vector_insert(v, 0, item); }
 
 int vector_delete(vector* v, const size_t index) {
