@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 #include "dlist.h"
-#include "slist.h"
+//#include "slist.h"
+#include "slist_tail.h"
 
 void slist_print(slist* l);
 void dlist_print(dlist* l);
@@ -65,8 +66,10 @@ void slist_test() {
 
   slist_print(&l);
 
-  printf("size: %ld\nempty: %d\nfront: %d\nback: %d\n", slist_size(&l),
-         slist_empty(&l), slist_front(&l), slist_back(&l));
+  printf("size: %ld\nempty: %d\nfront: %d\nback: %d\nhead: %p\n", slist_size(&l),
+         slist_empty(&l), slist_front(&l), slist_back(&l), l.head);
+  if(SLIST_TAIL)
+    printf("tail: %p\n", l.tail);
 
   printf("\n");
   slist_dump(&l);
@@ -75,12 +78,16 @@ void slist_test() {
   printf("popback = %d\n", slist_popback(&l));
 
   slist_print(&l);
-  printf("size: %ld\nempty: %d\nfront: %d\nback: %d\n", slist_size(&l),
-         slist_empty(&l), slist_front(&l), slist_back(&l));
+  printf("size: %ld\nempty: %d\nfront: %d\nback: %d\nhead: %p\n", slist_size(&l),
+         slist_empty(&l), slist_front(&l), slist_back(&l), l.head);
+  if(SLIST_TAIL)
+    printf("tail: %p\n", l.tail);
 
   slist_destroy(&l);
-  printf("\nsize: %ld\nempty: %d\nfront: %d\nback: %d\n", slist_size(&l),
-         slist_empty(&l), slist_front(&l), slist_back(&l));
+  printf("size: %ld\nempty: %d\nfront: %d\nback: %d\nhead: %p\n", slist_size(&l),
+         slist_empty(&l), slist_front(&l), slist_back(&l), l.head);
+  if(SLIST_TAIL)
+    printf("tail: %p\n", l.tail);
 }
 
 void dlist_test() {
