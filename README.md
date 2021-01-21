@@ -7,6 +7,25 @@ linked lists<br>
 stacks<br>
 queues<br>
 binary trees<br>
-hash tables<br>
+associative maps - hash tables, dictionaries<br>
+sets<br>
 heaps<br>
-graphs<br>
+graphs - matrix or adjacency list<br>
+
+big-o analysis<br>
+
+<h1>sorting algorithms</h1>
+quicksort<br>
+merge sort<br>
+insertion sort<br>
+
+<h1>search algorithms</h1>
+binary search<br>
+depth-first<br>
+breadth-first<br>
+
+<h1>graph algorithms</h1>
+breadth-first traversal<br>
+depth-first traversal<br>
+Dijkstra's algorithm<br>
+Prim's algorithm<br>
