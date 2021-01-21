@@ -4,7 +4,7 @@
 
 // private methods
 
-static sl_node* slist_goto(sl_node* n, const size_t index) {
+sl_node* slist_goto(sl_node* n, const size_t index) {
   if (!index)
     return n;
   else
@@ -22,7 +22,7 @@ slist slist_create(void) {
 }
 
 int slist_at(slist* l, const size_t index) {
-  if (index < 0 || index > l->size - 1 || !l->size) return -1;
+  if (index > l->size - 1 || !l->size) return -1;
   return slist_goto(l->head, index)->item;
 }
 
@@ -35,7 +35,7 @@ int slist_front(slist* l) { return slist_at(l, 0); }
 int slist_back(slist* l) { return slist_at(l, l->size - 1); }
 
 int slist_insert(slist* l, const size_t index, int item) {
-  if (index < 0 || index > l->size) return -1;
+  if (index > l->size) return -1;
   sl_node* tmp = malloc(sizeof(sl_node));
   tmp->item = item;
   if (!index) {
@@ -52,7 +52,7 @@ int slist_insert(slist* l, const size_t index, int item) {
 }
 
 int slist_delete(slist* l, const size_t index) {
-  if (index < 0 || index > l->size - 1 || !l->size) return -1;
+  if (index > l->size - 1 || !l->size) return -1;
   sl_node* tmp;      // node before the one to delete
   sl_node* byenode;  // node to delete
   if (!index) {
