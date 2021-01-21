@@ -12,6 +12,7 @@ sets<br>
 heaps<br>
 graphs - matrix or adjacency list<br>
 
+<br>
 big-o analysis<br>
 
 <h1>sorting algorithms</h1>
