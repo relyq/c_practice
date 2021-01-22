@@ -13,7 +13,9 @@ void dlist_test();
 
 
 int main(void) {
+  printf("slist test\n");
   slist_test();
+  printf("\ndlist test\n");
   dlist_test();
   return 0;
 }
@@ -84,6 +86,7 @@ void slist_test() {
     printf("tail: %p\n", l.tail);
 
   slist_destroy(&l);
+  printf("\nlist destroyed\n");
   printf("size: %ld\nempty: %d\nfront: %d\nback: %d\nhead: %p\n", slist_size(&l),
          slist_empty(&l), slist_front(&l), slist_back(&l), l.head);
   if(SLIST_TAIL)
