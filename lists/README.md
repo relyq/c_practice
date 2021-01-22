@@ -1,10 +1,10 @@
 # lists
 
-tail: insert() only needs to update tail if item was pushed to the back of the list
+all functions should handle being given a null pointer - slist_tail done
 
-tail: should optimize all functions with use of tail pointer
+should return error if trying to pop empty list
 
-all functions should handle being given a null pointer
+return error if malloc fails
 
 could implement swap()
 
@@ -13,3 +13,5 @@ doubly linked lists havent really been implemented
 should implement a way to walk through the list in reverse
 
 slist_pushback() doesnt work when list is empty
+
+do better error handling (exit(), atexit(), assert()), always return error code, and return output through a pointer

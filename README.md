@@ -11,6 +11,7 @@ associative maps - hash tables, dictionaries<br>
 sets<br>
 heaps<br>
 graphs - matrix or adjacency list<br>
+tries<br>
 
 <br>
 big-o analysis<br>
