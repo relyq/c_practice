@@ -15,6 +15,7 @@ sl_node* slist_goto(sl_node* n, const size_t index) {
 static int slist_insertat(slist* l, sl_node* n, int item) {
   if (!l || !n) return -1;
   sl_node* tmp = malloc(sizeof(sl_node));
+  if(!tmp) return -1;
   tmp->item = item;
   tmp->next = n->next;
   n->next = tmp;
@@ -63,6 +64,7 @@ int slist_back(slist* l) {
 int slist_insert(slist* l, const size_t index, int item) {
   if (!l || index > l->size) return -1;
   sl_node* tmp = malloc(sizeof(sl_node));
+  if(!tmp) return -1;
   tmp->item = item;
   if (!index) {
     tmp->next = l->head;
@@ -72,7 +74,7 @@ int slist_insert(slist* l, const size_t index, int item) {
     tmp->next = prev->next;
     prev->next = tmp;
   }
-  l->tail = slist_goto(l->head, l->size - 1);
+  l->tail = l->size? slist_goto(l->head, l->size - 1) : l->head;
   l->size++;
 
   return 0;
@@ -104,7 +106,7 @@ int slist_pushfront(slist* l, int item) {
 }
 
 int slist_popfront(slist* l) {
-  if (!l) return -1;
+  if (!l || !l->size) return -1;
   int val = slist_at(l, 0);
   slist_delete(l, 0);
   return val;
@@ -117,7 +119,7 @@ int slist_pushback(slist* l, int item) {
 }
 
 int slist_popback(slist* l) {
-  if (!l) return -1;
+  if (!l || !l->size) return -1;
   int val = l->tail->item;
   slist_delete(l, l->size - 1);
   return val;
