@@ -1,10 +1,9 @@
 # lists
 
-all functions should handle being given a null pointer - slist_tail done
-
-should return error if trying to pop empty list - slist_tail done
-
-return error if malloc fails - slist_tail done
+dlist:
+all functions should handle being given a null pointer
+should return error if trying to pop empty list 
+return error if malloc fails 
 
 i should make some tail pointer optimizations
 

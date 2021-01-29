@@ -1,5 +1,5 @@
-#ifndef SLIST_H
-#define SLIST_H
+#ifndef SLIST_TAIL_H
+#define SLIST_TAIL_H
 
 #include <stddef.h>
 
@@ -30,6 +30,5 @@ int slist_popback(slist* l);
 int slist_delete(slist* l, const size_t index);
 int slist_destroy(slist* l);
 sl_node* slist_goto(sl_node* n, const size_t index);
-
 
 #endif

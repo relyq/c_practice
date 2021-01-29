@@ -25,8 +25,7 @@ int slist_popfront(slist* l);
 int slist_pushback(slist* l, int item);
 int slist_popback(slist* l);
 int slist_delete(slist* l, const size_t index);
-void slist_destroy(slist* l);
+int slist_destroy(slist* l);
 sl_node* slist_goto(sl_node* n, const size_t index);
-
 
 #endif

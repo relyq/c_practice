@@ -15,7 +15,7 @@ sl_node* slist_goto(sl_node* n, const size_t index) {
 static int slist_insertat(slist* l, sl_node* n, int item) {
   if (!l || !n) return -1;
   sl_node* tmp = malloc(sizeof(sl_node));
-  if(!tmp) return -1;
+  if (!tmp) return -1;
   tmp->item = item;
   tmp->next = n->next;
   n->next = tmp;
@@ -63,9 +63,12 @@ int slist_back(slist* l) {
 
 int slist_insert(slist* l, const size_t index, int item) {
   if (!l || index > l->size) return -1;
+
   sl_node* tmp = malloc(sizeof(sl_node));
-  if(!tmp) return -1;
+  if (!tmp) return -1;
+
   tmp->item = item;
+
   if (!index) {
     tmp->next = l->head;
     l->head = tmp;
@@ -74,7 +77,8 @@ int slist_insert(slist* l, const size_t index, int item) {
     tmp->next = prev->next;
     prev->next = tmp;
   }
-  l->tail = l->size? slist_goto(l->head, l->size - 1) : l->head;
+
+  l->tail = l->size ? slist_goto(l->head, l->size - 1) : l->head;
   l->size++;
 
   return 0;
@@ -82,7 +86,9 @@ int slist_insert(slist* l, const size_t index, int item) {
 
 int slist_delete(slist* l, const size_t index) {
   if (!l || index > l->size - 1 || !l->size) return -1;
+
   sl_node* byenode;  // node to delete
+
   if (!index) {
     byenode = l->head;
     l->head = byenode->next;
@@ -94,6 +100,7 @@ int slist_delete(slist* l, const size_t index) {
     tmp->next = byenode->next;
     free(byenode);
   }
+
   l->size--;
   l->tail = slist_goto(l->head, l->size - 1);
 
