@@ -1,4 +1,7 @@
 .*
 *.out
+*.exe
+string_in_file/addstring
+string_in_file/findstring
 compile_commands.json
 !.gitignore
